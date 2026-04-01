@@ -7,14 +7,9 @@
 This project implements a complete SQL data pipeline designed to process, normalize, and analyze e-commerce transactions with a focus on **fraud detection**. The system handles the entire data lifecycle: from ingesting raw data (JSON format) to advanced analysis through views and auditing via triggers.
 
 ## 🏗️ Database Architecture (ERD)
-The database is organized into several schemas (**Staging**, **Processed**, **Log**) to ensure data integrity and separation of concerns.
+The database is organized into several schemas (**Staging**, **Processed**, **Log**) to ensure data integrity and separation of concerns. The diagram below illustrates the relationships between core entities like transactions, customers, and devices.
 
-The architecture includes entities such as:
-* **Customers & Addresses** (Shipping/Billing)
-* **Transactions & Products**
-* **Device Metadata** (IP, Device ID, Connection Type)
-
-
+![Database ERD Diagram](./project_diagram.png)
 
 ## 🛠️ Technical Implementation
 
@@ -26,7 +21,7 @@ I implemented a structured **SQL Agent Job** with two main steps:
 ### 2. Stored Procedures
 Automation is handled through optimized procedures:
 * **`Staging.LoadTransactionFromJson`**: Automates the raw-to-relational transformation.
-* **`dbo.pr_load_address`**: Populates the `Processed.address` table with unique shipping and billing addresses. It uses an incremental loading mechanism based on a `@max_load_date` variable to prevent duplicates.
+* **`dbo.pr_load_address`**: Popules the `Processed.address` table with unique shipping and billing addresses. It uses an incremental loading mechanism based on a `@max_load_date` variable to prevent duplicates.
 
 ### 3. Monitoring & Auditing
 * **Execution Logs:** A logging system records the status of the import jobs, ensuring visibility over successes or failures.
